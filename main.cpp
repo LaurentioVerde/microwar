@@ -17,6 +17,8 @@ int main(int argc, char **argv)
     const int xOffset = 23;
     const int yOffset = 23;
 
+    InitWindow(screenWidth, screenHeight, "MicroWar");
+
     auto textureManager = std::make_unique<TextureManager>();
     textureManager->addTexture("village", "gfx/village-tile.png");
     textureManager->addTexture("castle", "gfx/castle-tile.png");
@@ -28,8 +30,6 @@ int main(int argc, char **argv)
     SimpleBoardGenerator boardGenerator;
     boardGenerator.generateBoard(board);
 
-    InitWindow(screenWidth, screenHeight, "MicroWar");
-
     SetTargetFPS(30);
 
     while(!WindowShouldClose())
@@ -40,6 +40,8 @@ int main(int argc, char **argv)
 
         EndDrawing();
     }
+
+    textureManager.release();
 
     CloseWindow();
 

@@ -18,7 +18,8 @@ bool TextureManager::addTexture(const std::string& resourceName, std::string res
 {
     if(!_textures.count(resourceName))
     {
-        _textures[resourceName] = LoadTexture(resourcePath.c_str());
+        Texture2D newTexture = LoadTexture(resourcePath.c_str());
+        _textures[resourceName] = newTexture;
         return true;
     }
     return false;
@@ -31,7 +32,7 @@ Texture& TextureManager::getTexture(const std::string& resourceName)
 
 bool TextureManager::drawTexture(const std::string& resourceName, int x, int y)
 {
-    if(!_textures.count(resourceName))
+    if(_textures.count(resourceName))
     {
         DrawTexture(_textures[resourceName], x, y, WHITE);
         return true;
