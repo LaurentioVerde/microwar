@@ -7,6 +7,7 @@ enum class FieldType {
     Annexed,
     City,
     Village,
+    Tower,
     Mine
 };
 

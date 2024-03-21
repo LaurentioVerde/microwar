@@ -28,5 +28,33 @@ void SimpleBoardGenerator::generateBoard(Board& board)
         }
     }
 
+    boardData[std::pair(4, 0)].setFieldType(FieldType::Village);
+    boardData[std::pair(5, 0)].setFieldType(FieldType::City);
+    boardData[std::pair(6, 0)].setFieldType(FieldType::Village);
+    boardData[std::pair(5, 2)].setFieldType(FieldType::Tower);
+
+    boardData[std::pair(4, 10)].setFieldType(FieldType::Village);
+    boardData[std::pair(5, 10)].setFieldType(FieldType::City);
+    boardData[std::pair(6, 10)].setFieldType(FieldType::Village);
+    boardData[std::pair(5, 8)].setFieldType(FieldType::Tower);
+
     board.setBoardData(boardData);
+}
+
+void SimpleBoardGenerator::assignPlayers(Board &board, std::vector<Player*> players)
+{
+    if(players.size() != getAllowedPlayersCount())
+    {
+        return;
+    }
+
+    board.setFieldToPlayer(std::pair(4, 0), players[0]);
+    board.setFieldToPlayer(std::pair(5, 0), players[0]);
+    board.setFieldToPlayer(std::pair(6, 0), players[0]);
+    board.setFieldToPlayer(std::pair(5, 2), players[0]);
+
+    board.setFieldToPlayer(std::pair(4, 10), players[1]);
+    board.setFieldToPlayer(std::pair(5, 10), players[1]);
+    board.setFieldToPlayer(std::pair(6, 10), players[1]);
+    board.setFieldToPlayer(std::pair(5, 8), players[1]);
 }

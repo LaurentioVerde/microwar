@@ -21,14 +21,24 @@ int main(int argc, char **argv)
 
     auto textureManager = std::make_unique<TextureManager>();
     textureManager->addTexture("village", "gfx/village-tile.png");
-    textureManager->addTexture("castle", "gfx/castle-tile.png");
+    textureManager->addTexture("tower", "gfx/tower-tile.png");
     textureManager->addTexture("empty", "gfx/empty-tile.png");
+    textureManager->addTexture("city", "gfx/city-tile.png");
 
-    Player player;
+    Player player(ORANGE);
+    Player artificalPlayer(RED);
+    std::vector<Player*> players = {&player, &artificalPlayer};
+
     Board board;
     BoardDrawer drawer(board, std::move(textureManager));
+    drawer.linkResource(FieldType::Village, "village");
+    drawer.linkResource(FieldType::Unoccupied, "empty");
+    drawer.linkResource(FieldType::City, "city");
+    drawer.linkResource(FieldType::Tower, "tower");
+
     SimpleBoardGenerator boardGenerator;
     boardGenerator.generateBoard(board);
+    boardGenerator.assignPlayers(board, players);
 
     SetTargetFPS(30);
 
@@ -36,7 +46,7 @@ int main(int argc, char **argv)
     {
         BeginDrawing();
 
-        drawer.draw("village", xOffset, yOffset);
+        drawer.draw(xOffset, yOffset);
 
         EndDrawing();
     }

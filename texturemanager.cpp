@@ -30,11 +30,11 @@ Texture& TextureManager::getTexture(const std::string& resourceName)
     return _textures.at(resourceName);
 }
 
-bool TextureManager::drawTexture(const std::string& resourceName, int x, int y)
+bool TextureManager::drawTexture(const std::string& resourceName, int x, int y, Color color)
 {
     if(_textures.count(resourceName))
     {
-        DrawTexture(_textures[resourceName], x, y, WHITE);
+        DrawTexture(_textures[resourceName], x, y, color);
         return true;
     }
     return false;

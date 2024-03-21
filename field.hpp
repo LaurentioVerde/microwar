@@ -7,6 +7,8 @@
 class Field
 {
 public:
+    Field();
+
     inline void setOwner(Player *owner)
     {
         _owner = owner;

@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <memory>
+#include <map>
 
 #include "board.hpp"
 #include "raylib.h"
@@ -12,10 +13,12 @@ class BoardDrawer
 {
 public:
     BoardDrawer(Board& board, std::unique_ptr<ITextureManager> textureManager);
-    void draw(const std::string& resourceName, int xOffset, int yOffset);
+    void draw(int xOffset, int yOffset);
+    void linkResource(FieldType fieldType, const std::string& resourceName);
 private:
     Board& _board;
     std::unique_ptr<ITextureManager> _textureManager;
+    std::map<FieldType, std::string> _resourceLinkage;
 };
 
 #endif //BOARDDRAWER_HPP
