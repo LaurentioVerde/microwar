@@ -1,7 +1,8 @@
 #include "boarddrawer.hpp"
 
-BoardDrawer::BoardDrawer(Board& board, std::unique_ptr<ITextureManager> textureManager):
+BoardDrawer::BoardDrawer(Board& board, BoardInfo& info, std::shared_ptr<ITextureManager> textureManager):
 _board(board),
+_info(info),
 _textureManager(std::move(textureManager))
 {
 }
@@ -11,7 +12,7 @@ void BoardDrawer::linkResource(FieldType fieldType, const std::string& resourceN
     _resourceLinkage[fieldType] = resourceName;
 }
 
-void BoardDrawer::draw(int xOffset, int yOffset)
+void BoardDrawer::draw()
 {
     const float tileParam = 24;
     for(int xCounter = 0; xCounter < _board.getBoardWidth(); xCounter++)
@@ -24,8 +25,8 @@ void BoardDrawer::draw(int xOffset, int yOffset)
             if(_resourceLinkage.count(fieldType))
             {
                 Color color = fieldOwner != nullptr ? fieldOwner->getColor() : WHITE;
-                _textureManager->drawTexture(_resourceLinkage[fieldType], (tileParam + 1) * xCounter + xOffset,
-                    (tileParam + 1) * yCounter + yOffset, color);
+                _textureManager->drawTexture(_resourceLinkage[fieldType], (_info.tileSize + 1) * xCounter + _info.xOffset,
+                    (_info.tileSize + 1) * yCounter + _info.yOffset, color);
             }
         }
     }

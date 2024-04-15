@@ -1,23 +1,26 @@
 #ifndef BOARDDRAWER_HPP
 #define BOARDDRAWER_HPP
 
+#include "raylib.h"
+
 #include <functional>
 #include <memory>
 #include <map>
 
 #include "board.hpp"
-#include "raylib.h"
-#include "itexturemanager.hpp"
+#include "boardinfo.hpp"
+#include "engine/itexturemanager.hpp"
 
 class BoardDrawer
 {
 public:
-    BoardDrawer(Board& board, std::unique_ptr<ITextureManager> textureManager);
-    void draw(int xOffset, int yOffset);
+    BoardDrawer(Board& board, BoardInfo& info, std::shared_ptr<ITextureManager> textureManager);
+    void draw();
     void linkResource(FieldType fieldType, const std::string& resourceName);
 private:
     Board& _board;
-    std::unique_ptr<ITextureManager> _textureManager;
+    BoardInfo& _info;
+    std::shared_ptr<ITextureManager> _textureManager;
     std::map<FieldType, std::string> _resourceLinkage;
 };
 
