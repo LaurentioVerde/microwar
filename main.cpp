@@ -74,6 +74,7 @@ int main(int argc, char **argv)
     PlayerResourcesManager playerManager(board, player);
     playerManager.calculatePlayerActionPoints();
     playerManager.calculateFoodBalance();
+    playerManager.calculateTaxBalance();
 
     SetTargetFPS(30);
 

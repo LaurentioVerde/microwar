@@ -13,6 +13,11 @@ namespace SimpleGameConsts {
     constexpr int cityFoodBalance = -7;
     constexpr int towerFoodBalance = -3;
     constexpr int defaultFoodBalance = 0;
+
+    constexpr int villageTaxBalance = 2;
+    constexpr int cityTaxBalance = 5;
+    constexpr int towerTaxBalance = -5;
+    constexpr int defaultTaxBalance = 0;
 }
 
 class PlayerResourcesManager
@@ -22,6 +27,7 @@ public:
 
     int calculatePlayerActionPoints() const;
     int calculateFoodBalance() const;
+    int calculateTaxBalance() const;
 private:
     Board& _board;
     Player& _player;

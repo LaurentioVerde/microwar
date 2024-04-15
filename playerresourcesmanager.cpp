@@ -75,3 +75,37 @@ int PlayerResourcesManager::calculateFoodBalance() const
 
     return balance;
 }
+
+int PlayerResourcesManager::calculateTaxBalance() const
+{
+    int tax = 0;
+
+    std::vector<Field> fields;
+    for(size_t counterX = 0; counterX < _board.getBoardWidth(); counterX++)
+    {
+        for(size_t counterY = 0; counterY < _board.getBoardHeight(); counterY++)
+        {
+            std::pair<int, int> location = {counterX, counterY};
+            if(_board.getFieldOwner(location) == &_player)
+            {
+                switch(_board.getFieldType(location))
+                {
+                    case FieldType::Tower:
+                        tax += SimpleGameConsts::towerTaxBalance;
+                        break;
+                    case FieldType::Village:
+                        tax += SimpleGameConsts::villageTaxBalance;
+                        break;
+                    case FieldType::City:
+                        tax += SimpleGameConsts::cityTaxBalance;
+                        break;
+                    default:
+                        tax += SimpleGameConsts::defaultTaxBalance;
+                        break;
+                }
+            }
+        }
+    }
+
+    return tax;
+}
