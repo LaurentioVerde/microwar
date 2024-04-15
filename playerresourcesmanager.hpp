@@ -1,7 +1,10 @@
 #ifndef PLAYERRESOURCESMANAGER_HPP
 #define PLAYERRESOURCESMANAGER_HPP
 
+#include <vector>
+
 #include "board.hpp"
+#include "playerresourcesdiff.hpp"
 
 namespace SimpleGameConsts {
     constexpr int cityActionPointsFactor = 2;
@@ -24,10 +27,12 @@ class PlayerResourcesManager
 {
 public:
     PlayerResourcesManager(Board& gameBoard, Player& player);
-
-    int calculatePlayerActionPoints() const;
-    int calculateFoodBalance() const;
-    int calculateTaxBalance() const;
+    
+    PlayerResourcesDiff calculateResourcesChange() const;
+private:
+    int calculatePlayerActionPoints(const std::vector<FieldType>& fields) const;
+    int calculateFoodBalance(const std::vector<FieldType>& fields) const;
+    int calculateTaxBalance(const std::vector<FieldType>& fields) const;
 private:
     Board& _board;
     Player& _player;

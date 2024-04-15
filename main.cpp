@@ -14,13 +14,13 @@
 
 int main(int argc, char **argv)
 {
-    const int screenWidth = 320;
-    const int screenHeight = 320;
+    const int screenWidth = 480;
+    const int screenHeight = 360;
 
     const float battlegroundWidth = 11;
     const float battlegroundHeight = 11;
 
-    BoardInfo boardInfo = {23, 23, 24};
+    BoardInfo boardInfo = {181, 43, 24};
 
     InitWindow(screenWidth, screenHeight, "MicroWar");
     InitAudioDevice();
@@ -72,9 +72,7 @@ int main(int argc, char **argv)
     mapper.mapControl(KEY_RIGHT, CursorConsts::rightActionName);
 
     PlayerResourcesManager playerManager(board, player);
-    playerManager.calculatePlayerActionPoints();
-    playerManager.calculateFoodBalance();
-    playerManager.calculateTaxBalance();
+    auto change = playerManager.calculateResourcesChange();
 
     SetTargetFPS(30);
 
