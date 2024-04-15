@@ -4,7 +4,7 @@ project(microwar)
 
 add_executable(microwar main.cpp field.cpp board.cpp
     boarddrawer.cpp player.cpp simpleboardgenerator.cpp
-    cursor.cpp
+    cursor.cpp playerresourcesmanager.cpp
     engine/texturemanager.cpp engine/uimanager.cpp
     engine/controllermapper.cpp engine/soundmanager.cpp)
 

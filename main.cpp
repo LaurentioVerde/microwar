@@ -1,15 +1,16 @@
 #include "raylib.h"
 
+#include "engine/uimanager.hpp"
+#include "engine/texturemanager.hpp"
+#include "engine/controllermapper.hpp"
+#include "engine/soundmanager.hpp"
+
 #include "player.hpp"
 #include "board.hpp"
 #include "boarddrawer.hpp"
 #include "simpleboardgenerator.hpp"
 #include "cursor.hpp"
-
-#include "engine/uimanager.hpp"
-#include "engine/texturemanager.hpp"
-#include "engine/controllermapper.hpp"
-#include "engine/soundmanager.hpp"
+#include "playerresourcesmanager.hpp"
 
 int main(int argc, char **argv)
 {
@@ -31,8 +32,8 @@ int main(int argc, char **argv)
     textureManager->addTexture("city", "gfx/city-tile.png");
     textureManager->addTexture("cursor", "gfx/cursor.png");
 
-    Player player(ORANGE);
-    Player artificalPlayer(RED);
+    Player player(ORANGE, "Player");
+    Player artificalPlayer(RED, "AI");
     std::vector<Player*> players = {&player, &artificalPlayer};
 
     ControllerMapper mapper;
@@ -69,6 +70,9 @@ int main(int argc, char **argv)
     mapper.mapControl(KEY_DOWN, CursorConsts::downActionName);
     mapper.mapControl(KEY_LEFT, CursorConsts::leftActionName);
     mapper.mapControl(KEY_RIGHT, CursorConsts::rightActionName);
+
+    PlayerResourcesManager playerManager(board, player);
+    playerManager.calculatePlayerActionPoints();
 
     SetTargetFPS(30);
 

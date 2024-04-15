@@ -30,10 +30,10 @@ public:
         return _height;
     }
 
-    FieldType getFieldType(std::pair<int, int> coordinates) const;
-
     void setFieldToPlayer(std::pair<int, int> coordinates, Player* player);
     Player* getFieldOwner(std::pair<int, int> coordinates) const;
+
+    FieldType getFieldType(std::pair<int, int> coordinates) const;
 private:
     std::map<std::pair<int, int>, Field> _boardData;
     unsigned int _width;
