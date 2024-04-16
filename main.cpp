@@ -11,6 +11,7 @@
 #include "simpleboardgenerator.hpp"
 #include "cursor.hpp"
 #include "playerresourcesmanager.hpp"
+#include "resourcesuielement.hpp"
 
 int main(int argc, char **argv)
 {
@@ -31,6 +32,8 @@ int main(int argc, char **argv)
     textureManager->addTexture("empty", "gfx/empty-tile.png");
     textureManager->addTexture("city", "gfx/city-tile.png");
     textureManager->addTexture("cursor", "gfx/cursor.png");
+
+    textureManager->addTexture("actionPoint", "gfx/action-point.png");
 
     Player player(ORANGE, "Player");
     Player artificalPlayer(RED, "AI");
@@ -73,6 +76,9 @@ int main(int argc, char **argv)
 
     PlayerResourcesManager playerManager(board, player);
     auto change = playerManager.calculateResourcesChange();
+
+    auto resourcesUIElement = std::make_unique<ResourcesUIElement>(change, ORANGE);
+    manager.addElementDrawer(std::move(resourcesUIElement));
 
     SetTargetFPS(30);
 

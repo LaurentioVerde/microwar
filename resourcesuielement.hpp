@@ -1,16 +1,20 @@
 #ifndef RESOURCESUIELEMENT_HPP
 #define RESOURCESUIELEMENT_HPP
 
-#include "engine/iuielement.hpp"
+#include "engine/iuielementsdrawer.hpp"
+#include "playerresourcesdiff.hpp"
 
-class ResourcesUIElement : public IUIElement
+class ResourcesUIElement : public IUIElementsDrawer
 {
 public:
-    virtual std::pair<int, int> getUIPosition() const override;
-    virtual std::string getUIResourceName() const override;
+    ResourcesUIElement(PlayerResourcesDiff& difference, Color color);
+
     virtual Color getColor() const override;
-    virtual std::vector<std::string_view> getAllowedActions() const override;
-    virtual void executeAction(const std::string& actionName) override;
+    virtual void draw(TextureManager& manager) const override;
+
+private:
+    PlayerResourcesDiff _difference;
+    Color _color;
 };
 
 #endif //RESOURCESUIELEMENT_HPP

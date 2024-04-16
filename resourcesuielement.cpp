@@ -1,22 +1,22 @@
 #include "resourcesuielement.hpp"
 
-std::pair<int, int> getUIPosition() const
+ResourcesUIElement::ResourcesUIElement(PlayerResourcesDiff& difference, Color color):
+_difference(difference),
+_color(color)
 {
-
 }
-std::string getUIResourceName() const
-{
 
-}
-Color getColor() const
+Color ResourcesUIElement::getColor() const
 {
+    return _color;
+}
 
-}
-std::vector<std::string_view> getAllowedActions() const
+void ResourcesUIElement::draw(TextureManager& manager) const
 {
+    DrawText("Action points: ", 0, 0, 12, _color);
 
-}
-void executeAction(const std::string& actionName)
-{
-    
+    for(size_t counter = 0; counter < _difference.actionPointsChange; counter++)
+    {
+        manager.drawTexture("actionPoint", 85 + counter * 14, 0, _color);
+    }
 }

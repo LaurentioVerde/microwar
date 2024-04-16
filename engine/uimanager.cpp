@@ -13,6 +13,11 @@ void UIManager::addElement(std::unique_ptr<IUIElement> element)
     _interfaceElements.push_back(std::move(element));
 }
 
+void UIManager::addElementDrawer(std::unique_ptr<IUIElementsDrawer> drawer)
+{
+    _interfaceElementsDrawer.push_back(std::move(drawer));
+}
+
 void UIManager::draw()
 {
     for(auto& element : _interfaceElements)
@@ -22,6 +27,10 @@ void UIManager::draw()
         auto color = element->getColor();
 
         bool elementDrawn = _manager->drawTexture(resourceName, position.first, position.second, color);
+    }
+    for(auto& drawer : _interfaceElementsDrawer)
+    {
+        drawer->draw(*_manager);
     }
 }
 
