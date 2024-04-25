@@ -15,13 +15,16 @@
 
 int main(int argc, char **argv)
 {
-    const int screenWidth = 480;
-    const int screenHeight = 360;
+    const int screenWidth = 400;
+    const int screenHeight = 320;
 
     const float battlegroundWidth = 11;
     const float battlegroundHeight = 11;
 
-    BoardInfo boardInfo = {181, 43, 24};
+    const std::pair<int, int> offsetGUIUp(120, 4);
+    const std::pair<int, int> offsetGUIDown(120, 304);
+
+    BoardInfo boardInfo = {120, 23, 24};
 
     InitWindow(screenWidth, screenHeight, "MicroWar");
     InitAudioDevice();
@@ -34,6 +37,9 @@ int main(int argc, char **argv)
     textureManager->addTexture("cursor", "gfx/cursor.png");
 
     textureManager->addTexture("actionPoint", "gfx/action-point.png");
+
+    textureManager->addTexture("foodIcon", "gfx/food-icon.png");
+    textureManager->addTexture("taxIcon", "gfx/tax-icon.png");
 
     Player player(ORANGE, "Player");
     Player artificalPlayer(RED, "AI");
@@ -77,7 +83,7 @@ int main(int argc, char **argv)
     PlayerResourcesManager playerManager(board, player);
     auto change = playerManager.calculateResourcesChange();
 
-    auto resourcesUIElement = std::make_unique<ResourcesUIElement>(change, ORANGE);
+    auto resourcesUIElement = std::make_unique<ResourcesUIElement>(change, ORANGE, offsetGUIUp, offsetGUIDown, 12);
     manager.addElementDrawer(std::move(resourcesUIElement));
 
     SetTargetFPS(30);
