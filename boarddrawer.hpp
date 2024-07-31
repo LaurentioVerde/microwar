@@ -10,8 +10,9 @@
 #include "board.hpp"
 #include "boardinfo.hpp"
 #include "engine/itexturemanager.hpp"
+#include "engine/idrawer.hpp"
 
-class BoardDrawer
+class BoardDrawer : public IDrawer
 {
 public:
     BoardDrawer(Board& board, BoardInfo& info, std::shared_ptr<ITextureManager> textureManager);

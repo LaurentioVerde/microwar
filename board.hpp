@@ -30,7 +30,7 @@ public:
         return _height;
     }
 
-    void setFieldToPlayer(std::pair<int, int> coordinates, Player* player);
+    void setFieldOwner(std::pair<int, int> coordinates, Player* player);
     Player* getFieldOwner(std::pair<int, int> coordinates) const;
 
     FieldType getFieldType(std::pair<int, int> coordinates) const;

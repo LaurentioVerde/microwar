@@ -48,13 +48,13 @@ void SimpleBoardGenerator::assignPlayers(Board &board, std::vector<Player*> play
         return;
     }
 
-    board.setFieldToPlayer(std::pair(4, 0), players[0]);
-    board.setFieldToPlayer(std::pair(5, 0), players[0]);
-    board.setFieldToPlayer(std::pair(6, 0), players[0]);
-    board.setFieldToPlayer(std::pair(5, 2), players[0]);
+    board.setFieldOwner(std::pair(4, 0), players[0]);
+    board.setFieldOwner(std::pair(5, 0), players[0]);
+    board.setFieldOwner(std::pair(6, 0), players[0]);
+    board.setFieldOwner(std::pair(5, 2), players[0]);
 
-    board.setFieldToPlayer(std::pair(4, 10), players[1]);
-    board.setFieldToPlayer(std::pair(5, 10), players[1]);
-    board.setFieldToPlayer(std::pair(6, 10), players[1]);
-    board.setFieldToPlayer(std::pair(5, 8), players[1]);
+    board.setFieldOwner(std::pair(4, 10), players[1]);
+    board.setFieldOwner(std::pair(5, 10), players[1]);
+    board.setFieldOwner(std::pair(6, 10), players[1]);
+    board.setFieldOwner(std::pair(5, 8), players[1]);
 }

@@ -14,7 +14,7 @@ FieldType Board::getFieldType(std::pair<int, int> coordinates) const
     }   
 }
 
-void Board::setFieldToPlayer(std::pair<int, int> coordinates, Player* player)
+void Board::setFieldOwner(std::pair<int, int> coordinates, Player* player)
 {
     try
     {

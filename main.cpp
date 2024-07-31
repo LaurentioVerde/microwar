@@ -4,6 +4,7 @@
 #include "engine/texturemanager.hpp"
 #include "engine/controllermapper.hpp"
 #include "engine/soundmanager.hpp"
+#include "engine/drawingmanager.hpp"
 
 #include "player.hpp"
 #include "board.hpp"
@@ -12,6 +13,7 @@
 #include "cursor.hpp"
 #include "playerresourcesmanager.hpp"
 #include "resourcesuielement.hpp"
+#include "unitsmanager.hpp"
 
 int main(int argc, char **argv)
 {
@@ -25,6 +27,8 @@ int main(int argc, char **argv)
     const std::pair<int, int> offsetGUIDown(120, 304);
 
     BoardInfo boardInfo = {120, 23, 24};
+
+    DrawingManager drawingManager;
 
     InitWindow(screenWidth, screenHeight, "MicroWar");
     InitAudioDevice();
@@ -48,11 +52,11 @@ int main(int argc, char **argv)
     ControllerMapper mapper;
 
     Board board;
-    BoardDrawer drawer(board, boardInfo, textureManager);
-    drawer.linkResource(FieldType::Village, "village");
-    drawer.linkResource(FieldType::Unoccupied, "empty");
-    drawer.linkResource(FieldType::City, "city");
-    drawer.linkResource(FieldType::Tower, "tower");
+    BoardDrawer boardDrawer(board, boardInfo, textureManager);
+    boardDrawer.linkResource(FieldType::Village, "village");
+    boardDrawer.linkResource(FieldType::Unoccupied, "empty");
+    boardDrawer.linkResource(FieldType::City, "city");
+    boardDrawer.linkResource(FieldType::Tower, "tower");
 
     SimpleBoardGenerator boardGenerator;
     boardGenerator.generateBoard(board);
@@ -61,19 +65,21 @@ int main(int argc, char **argv)
     auto cursor = std::make_unique<Cursor>("cursor", Color{100, 255, 0, 255}, board, boardInfo);
     cursor->deduceCursorInitialPosition();
 
+    UnitsManager unitsManager;
+
     SoundManager soundManager;
     soundManager.addSound({CursorConsts::rightActionName,
         CursorConsts::leftActionName,
         CursorConsts::upActionName,
         CursorConsts::downActionName}, "sfx/cursor.wav");
 
-    UIManager manager(textureManager);
-    manager.addElement(std::move(cursor));
+    UIManager interfaceManager(textureManager);
+    interfaceManager.addElement(std::move(cursor));
 
-    manager.invokeAction(std::string(CursorConsts::upActionName));
-    manager.invokeAction(std::string(CursorConsts::upActionName));
+    interfaceManager.invokeAction(std::string(CursorConsts::upActionName));
+    interfaceManager.invokeAction(std::string(CursorConsts::upActionName));
 
-    mapper.addInvokable(&manager);
+    mapper.addInvokable(&interfaceManager);
     mapper.addInvokable(&soundManager);
     mapper.mapControl(KEY_UP, CursorConsts::upActionName);
     mapper.mapControl(KEY_DOWN, CursorConsts::downActionName);
@@ -84,7 +90,11 @@ int main(int argc, char **argv)
     auto change = playerManager.calculateResourcesChange();
 
     auto resourcesUIElement = std::make_unique<ResourcesUIElement>(change, ORANGE, offsetGUIUp, offsetGUIDown, 12);
-    manager.addElementDrawer(std::move(resourcesUIElement));
+    interfaceManager.addElementDrawer(std::move(resourcesUIElement));
+
+    drawingManager.addDrawer(&interfaceManager);
+    drawingManager.addDrawer(&boardDrawer);
+    drawingManager.addDrawer(&unitsManager);
 
     SetTargetFPS(30);
 
@@ -95,8 +105,7 @@ int main(int argc, char **argv)
         ClearBackground(BLACK);
 
         mapper.process();
-        drawer.draw();
-        manager.draw();
+        drawingManager.draw();
 
         EndDrawing();
     }

@@ -9,9 +9,10 @@
 #include "iuielement.hpp"
 #include "texturemanager.hpp"
 #include "iinvokable.hpp"
+#include "idrawer.hpp"
 #include "iuielementsdrawer.hpp"
 
-class UIManager : public IInvokable
+class UIManager : public IInvokable, public IDrawer
 {
 public:
     UIManager(std::shared_ptr<TextureManager> manager);
