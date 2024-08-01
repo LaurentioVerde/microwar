@@ -3,7 +3,7 @@
 BoardDrawer::BoardDrawer(Board& board, BoardInfo& info, std::shared_ptr<ITextureManager> textureManager):
 _board(board),
 _info(info),
-_textureManager(std::move(textureManager))
+_textureManager(textureManager)
 {
 }
 
@@ -14,7 +14,6 @@ void BoardDrawer::linkResource(FieldType fieldType, const std::string& resourceN
 
 void BoardDrawer::draw()
 {
-    const float tileParam = 24;
     for(int xCounter = 0; xCounter < _board.getBoardWidth(); xCounter++)
     {
         for(int yCounter = 0; yCounter < _board.getBoardHeight(); yCounter++)

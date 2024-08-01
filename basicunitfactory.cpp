@@ -7,10 +7,10 @@ _unitResourceName(unitResourceName)
 {
 }
 
-IUnit&& BasicUnitFactory::produceUnit(std::pair<int, int> position, Player* player)
+std::unique_ptr<IUnit> BasicUnitFactory::produceUnit(std::pair<int, int> position, Player* player)
 {
-    BasicUnit unit(_unitResourceName);
-    unit.setPosition(position);
-    unit.setPlayer(player);
+    auto unit = std::make_unique<BasicUnit>(_unitResourceName);
+    unit->setPosition(position);
+    unit->setPlayer(player);
     return std::move(unit);
 }

@@ -14,6 +14,7 @@
 #include "playerresourcesmanager.hpp"
 #include "resourcesuielement.hpp"
 #include "unitsmanager.hpp"
+#include "simpleunitspopulator.hpp"
 
 int main(int argc, char **argv)
 {
@@ -45,6 +46,8 @@ int main(int argc, char **argv)
     textureManager->addTexture("foodIcon", "gfx/food-icon.png");
     textureManager->addTexture("taxIcon", "gfx/tax-icon.png");
 
+    textureManager->addTexture("soldier", "gfx/soldier.png");
+
     Player player(ORANGE, "Player");
     Player artificalPlayer(RED, "AI");
     std::vector<Player*> players = {&player, &artificalPlayer};
@@ -62,10 +65,13 @@ int main(int argc, char **argv)
     boardGenerator.generateBoard(board);
     boardGenerator.assignPlayers(board, players);
 
+    UnitsManager unitsManager(boardInfo, textureManager);
+
+    SimpleUnitsPopulator populator("soldier");
+    populator.populateBoard(unitsManager, players);
+
     auto cursor = std::make_unique<Cursor>("cursor", Color{100, 255, 0, 255}, board, boardInfo);
     cursor->deduceCursorInitialPosition();
-
-    UnitsManager unitsManager;
 
     SoundManager soundManager;
     soundManager.addSound({CursorConsts::rightActionName,

@@ -7,7 +7,7 @@ class BasicUnitFactory : public IUnitFactory {
 public:
     BasicUnitFactory(const std::string& unitResourceName);
     virtual ~BasicUnitFactory() = default;
-    virtual IUnit&& produceUnit(std::pair<int, int> position, Player* player) override;
+    virtual std::unique_ptr<IUnit> produceUnit(std::pair<int, int> position, Player* player) override;
 private:
     const std::string _unitResourceName;
 };
