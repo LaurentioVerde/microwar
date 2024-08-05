@@ -15,6 +15,8 @@
 #include "resourcesuielement.hpp"
 #include "unitsmanager.hpp"
 #include "simpleunitspopulator.hpp"
+#include "playerscontroller.hpp"
+#include "gameloop.hpp"
 
 int main(int argc, char **argv)
 {
@@ -48,9 +50,9 @@ int main(int argc, char **argv)
 
     textureManager->addTexture("soldier", "gfx/soldier.png");
 
-    Player player(ORANGE, "Player");
-    Player artificalPlayer(RED, "AI");
-    std::vector<Player*> players = {&player, &artificalPlayer};
+    PlayersController playersController;
+    playersController.createPlayer(GREEN, "Player");
+    playersController.createPlayer(ORANGE, "AI");
 
     ControllerMapper mapper;
 
@@ -63,14 +65,14 @@ int main(int argc, char **argv)
 
     SimpleBoardGenerator boardGenerator;
     boardGenerator.generateBoard(board);
-    boardGenerator.assignPlayers(board, players);
+    boardGenerator.assignPlayers(board, playersController);
 
     UnitsManager unitsManager(boardInfo, textureManager);
 
     SimpleUnitsPopulator populator("soldier");
-    populator.populateBoard(unitsManager, players);
+    populator.populateBoard(unitsManager, playersController);
 
-    auto cursor = std::make_unique<Cursor>("cursor", Color{100, 255, 0, 255}, board, boardInfo);
+    auto cursor = std::make_unique<Cursor>("cursor", Color{100, 200, 50, 255}, board, boardInfo);
     cursor->deduceCursorInitialPosition();
 
     SoundManager soundManager;
@@ -82,27 +84,29 @@ int main(int argc, char **argv)
     UIManager interfaceManager(textureManager);
     interfaceManager.addElement(std::move(cursor));
 
-    interfaceManager.invokeAction(std::string(CursorConsts::upActionName));
-    interfaceManager.invokeAction(std::string(CursorConsts::upActionName));
+    GameLoop loop(unitsManager, board, playersController);
 
     mapper.addInvokable(&interfaceManager);
     mapper.addInvokable(&soundManager);
+    mapper.addInvokable(&loop);
     mapper.mapControl(KEY_UP, CursorConsts::upActionName);
     mapper.mapControl(KEY_DOWN, CursorConsts::downActionName);
     mapper.mapControl(KEY_LEFT, CursorConsts::leftActionName);
     mapper.mapControl(KEY_RIGHT, CursorConsts::rightActionName);
+    mapper.mapControl(KEY_ENTER, CursorConsts::endTurnActionName);
 
-    PlayerResourcesManager playerManager(board, player);
+    playersController.resetActualPlayer();
+    PlayerResourcesManager playerManager(board, *playersController.getActualPlayer());
     auto change = playerManager.calculateResourcesChange();
 
-    auto resourcesUIElement = std::make_unique<ResourcesUIElement>(change, ORANGE, offsetGUIUp, offsetGUIDown, 12);
+    auto resourcesUIElement = std::make_unique<ResourcesUIElement>(change, playersController, offsetGUIUp, offsetGUIDown, 12);
     interfaceManager.addElementDrawer(std::move(resourcesUIElement));
 
     drawingManager.addDrawer(&interfaceManager);
     drawingManager.addDrawer(&boardDrawer);
     drawingManager.addDrawer(&unitsManager);
 
-    SetTargetFPS(30);
+    SetTargetFPS(60);
 
     while(!WindowShouldClose())
     {
@@ -112,6 +116,8 @@ int main(int argc, char **argv)
 
         mapper.process();
         drawingManager.draw();
+
+        loop.processLogic();
 
         EndDrawing();
     }

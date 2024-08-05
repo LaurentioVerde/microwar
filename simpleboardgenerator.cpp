@@ -41,20 +41,24 @@ void SimpleBoardGenerator::generateBoard(Board& board)
     board.setBoardData(boardData);
 }
 
-void SimpleBoardGenerator::assignPlayers(Board &board, std::vector<Player*> players)
+void SimpleBoardGenerator::assignPlayers(Board &board, PlayersController &playersController)
 {
-    if(players.size() != getAllowedPlayersCount())
+    if(playersController.getPlayerCount() != getAllowedPlayersCount())
     {
         return;
     }
 
-    board.setFieldOwner(std::pair(4, 0), players[0]);
-    board.setFieldOwner(std::pair(5, 0), players[0]);
-    board.setFieldOwner(std::pair(6, 0), players[0]);
-    board.setFieldOwner(std::pair(5, 2), players[0]);
+    playersController.resetActualPlayer();
+    auto actualPlayer = playersController.getActualPlayer();
+    board.setFieldOwner(std::pair(4, 0), actualPlayer);
+    board.setFieldOwner(std::pair(5, 0), actualPlayer);
+    board.setFieldOwner(std::pair(6, 0), actualPlayer);
+    board.setFieldOwner(std::pair(5, 2), actualPlayer);
 
-    board.setFieldOwner(std::pair(4, 10), players[1]);
-    board.setFieldOwner(std::pair(5, 10), players[1]);
-    board.setFieldOwner(std::pair(6, 10), players[1]);
-    board.setFieldOwner(std::pair(5, 8), players[1]);
+    playersController.nextPlayer();
+    actualPlayer = playersController.getActualPlayer();
+    board.setFieldOwner(std::pair(4, 10), actualPlayer);
+    board.setFieldOwner(std::pair(5, 10), actualPlayer);
+    board.setFieldOwner(std::pair(6, 10), actualPlayer);
+    board.setFieldOwner(std::pair(5, 8), actualPlayer);
 }

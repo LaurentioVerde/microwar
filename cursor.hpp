@@ -16,6 +16,7 @@ namespace CursorConsts {
     static constexpr std::string_view downActionName = "down";
     static constexpr std::string_view leftActionName = "left";
     static constexpr std::string_view rightActionName = "right";
+    static constexpr std::string_view endTurnActionName = "end";
 
     static std::vector<std::string_view> actionNames = {upActionName, downActionName,
         leftActionName, rightActionName};

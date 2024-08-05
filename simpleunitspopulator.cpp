@@ -7,16 +7,18 @@ _basicUnitResourceName(basicUnitResourceName)
 {
 }
 
-void SimpleUnitsPopulator::populateBoard(UnitsManager& manager, std::vector<Player*> players)
+void SimpleUnitsPopulator::populateBoard(UnitsManager& manager, PlayersController& playersController)
 {
-    if(players.size() != getAllowedPlayersCount())
+    if(playersController.getPlayerCount() != getAllowedPlayersCount())
     {
         return;
     }
 
+    playersController.resetActualPlayer();
     BasicUnitFactory unitFactory(_basicUnitResourceName);
-    manager.addUnit(unitFactory.produceUnit(std::make_pair(5, 3), players[0]));
-    manager.addUnit(unitFactory.produceUnit(std::make_pair(5, 7), players[1]));
+    manager.addUnit(unitFactory.produceUnit(std::make_pair(5, 3), playersController.getActualPlayer()));
+    playersController.nextPlayer();
+    manager.addUnit(unitFactory.produceUnit(std::make_pair(5, 7), playersController.getActualPlayer()));
 }
 
 int SimpleUnitsPopulator::getAllowedPlayersCount() const

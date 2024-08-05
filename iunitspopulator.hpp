@@ -2,10 +2,11 @@
 #define IUNITSPOPULATOR_HPP
 
 #include "unitsmanager.hpp"
+#include "playerscontroller.hpp"
 
 class IUnitsPopulator {
 public:
-    virtual void populateBoard(UnitsManager& manager, std::vector<Player*> players) = 0;
+    virtual void populateBoard(UnitsManager& manager, PlayersController& playersController) = 0;
     virtual int getAllowedPlayersCount() const = 0;
 };
 

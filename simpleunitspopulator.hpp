@@ -10,7 +10,7 @@ class SimpleUnitsPopulator : public IUnitsPopulator
 {
 public:
     SimpleUnitsPopulator(const std::string& basicUnitResourceName);
-    virtual void populateBoard(UnitsManager& manager, std::vector<Player*> players) override;
+    virtual void populateBoard(UnitsManager& manager, PlayersController& playersController) override;
     virtual int getAllowedPlayersCount() const override;
 private:
     const std::string _basicUnitResourceName;

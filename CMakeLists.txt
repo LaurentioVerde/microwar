@@ -8,7 +8,8 @@ add_executable(microwar main.cpp field.cpp board.cpp
     cursor.cpp playerresourcesmanager.cpp
     resourcesuielement.cpp unitsmanager.cpp
     basicunit.cpp basicunitfactory.cpp
-    simpleunitspopulator.cpp
+    simpleunitspopulator.cpp playerscontroller.cpp
+    gameloop.cpp
     engine/texturemanager.cpp engine/uimanager.cpp
     engine/controllermapper.cpp engine/soundmanager.cpp
     engine/drawingmanager.cpp)
