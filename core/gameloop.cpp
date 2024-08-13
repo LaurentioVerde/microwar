@@ -1,6 +1,6 @@
 #include "gameloop.hpp"
 
-#include "cursor.hpp"
+#include "ui/cursor.hpp"
 
 GameLoop::GameLoop(UnitsManager& unitsManager, Board& board, PlayersController& playersController):
 _unitsManager(unitsManager),

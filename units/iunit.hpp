@@ -4,7 +4,7 @@
 #include <utility>
 #include <string> 
 
-#include "player.hpp"
+#include "player/player.hpp"
 
 class IUnit
 {

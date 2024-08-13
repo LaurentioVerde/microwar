@@ -5,7 +5,7 @@
 #include "engine/itexturemanager.hpp"
 
 #include "iunit.hpp"
-#include "boardinfo.hpp"
+#include "board/boardinfo.hpp"
 
 #include <vector>
 #include <memory>

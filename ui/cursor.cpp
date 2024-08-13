@@ -1,6 +1,6 @@
 #include "cursor.hpp"
 
-#include "consts.hpp"
+#include "core/consts.hpp"
 
 Cursor::Cursor(std::string resourceName, Color cursorColor, const Board& board, const BoardInfo& info):
 _resourceName(resourceName),

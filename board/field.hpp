@@ -1,7 +1,7 @@
 #ifndef FIELD_HPP
 #define FIELD_HPP
 
-#include "player.hpp"
+#include "player/player.hpp"
 #include "fieldtype.hpp"
 
 class Field

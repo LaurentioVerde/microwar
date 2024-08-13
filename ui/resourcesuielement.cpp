@@ -1,4 +1,4 @@
-#include "resourcesuielement.hpp"
+#include "ui/resourcesuielement.hpp"
 
 ResourcesUIElement::ResourcesUIElement(PlayerResourcesDiff& difference, PlayersController& playersController,
     std::pair<int, int> offsetUp, std::pair<int, int> offsetDown, int fontSize):

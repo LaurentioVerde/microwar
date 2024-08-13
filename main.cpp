@@ -6,17 +6,17 @@
 #include "engine/soundmanager.hpp"
 #include "engine/drawingmanager.hpp"
 
-#include "player.hpp"
-#include "board.hpp"
-#include "boarddrawer.hpp"
-#include "simpleboardgenerator.hpp"
-#include "cursor.hpp"
-#include "playerresourcesmanager.hpp"
-#include "resourcesuielement.hpp"
-#include "unitsmanager.hpp"
-#include "simpleunitspopulator.hpp"
-#include "playerscontroller.hpp"
-#include "gameloop.hpp"
+#include "player/player.hpp"
+#include "board/board.hpp"
+#include "board/boarddrawer.hpp"
+#include "board/simpleboardgenerator.hpp"
+#include "ui/cursor.hpp"
+#include "player/playerresourcesmanager.hpp"
+#include "ui/resourcesuielement.hpp"
+#include "units/unitsmanager.hpp"
+#include "units/simpleunitspopulator.hpp"
+#include "player/playerscontroller.hpp"
+#include "core/gameloop.hpp"
 
 int main(int argc, char **argv)
 {

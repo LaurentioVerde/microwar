@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "board.hpp"
+#include "board/board.hpp"
 #include "playerresourcesdiff.hpp"
 
 namespace SimpleGameConsts {

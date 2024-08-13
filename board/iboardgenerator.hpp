@@ -2,7 +2,7 @@
 #define IBOARDGENERATOR_HPP
 
 #include "board.hpp"
-#include "playerscontroller.hpp"
+#include "player/playerscontroller.hpp"
 
 #include <vector>
 

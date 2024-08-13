@@ -4,9 +4,9 @@
 #include "engine/iscenelogic.hpp"
 #include "engine/iinvokable.hpp"
 
-#include "unitsmanager.hpp"
-#include "board.hpp"
-#include "playerscontroller.hpp"
+#include "units/unitsmanager.hpp"
+#include "board/board.hpp"
+#include "player/playerscontroller.hpp"
 
 class GameLoop : public ISceneLogic, public IInvokable {
 public:

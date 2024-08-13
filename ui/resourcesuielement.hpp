@@ -2,8 +2,8 @@
 #define RESOURCESUIELEMENT_HPP
 
 #include "engine/iuielementsdrawer.hpp"
-#include "playerresourcesdiff.hpp"
-#include "playerscontroller.hpp"
+#include "player/playerresourcesdiff.hpp"
+#include "player/playerscontroller.hpp"
 
 class ResourcesUIElement : public IUIElementsDrawer
 {

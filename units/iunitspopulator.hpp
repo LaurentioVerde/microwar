@@ -2,7 +2,7 @@
 #define IUNITSPOPULATOR_HPP
 
 #include "unitsmanager.hpp"
-#include "playerscontroller.hpp"
+#include "player/playerscontroller.hpp"
 
 class IUnitsPopulator {
 public:

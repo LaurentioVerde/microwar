@@ -3,8 +3,8 @@
 
 #include "engine/iuielement.hpp"
 
-#include "board.hpp"
-#include "boardinfo.hpp"
+#include "board/board.hpp"
+#include "board/boardinfo.hpp"
 
 #include <utility>
 #include <memory>
